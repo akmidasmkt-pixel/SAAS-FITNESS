@@ -127,7 +127,7 @@ export default function FichaAluno() {
         </div>
 
         <div className="overflow-x-auto -mx-1 px-1">
-          <Segmentado rotulo="Seções da ficha" opcoes={ABAS} valor={aba} onChange={(v) => setAba(v)} />
+          <div className="w-max min-w-full"><Segmentado rotulo="Seções da ficha" opcoes={ABAS} valor={aba} onChange={(v) => setAba(v)} /></div>
         </div>
 
         {aluno.status === "arquivado" ? <Aviso>Aluno arquivado: não gera cobranças e não acessa o app. Reative em Opções.</Aviso> : null}

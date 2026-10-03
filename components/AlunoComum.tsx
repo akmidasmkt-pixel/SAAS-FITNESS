@@ -83,7 +83,7 @@ export function TreinoPausado() {
           <>
             <div className="flex items-center justify-between rounded-xl bg-fundo px-4 py-3">
               <span className="text-sm text-texto2">{c.descricao || "Mensalidade"} · venceu {ddmm(c.vencimento)}</span>
-              <span className="text-base font-extrabold">{brl(c.valor)}</span>
+              <span className="text-base font-extrabold whitespace-nowrap">{brl(c.valor)}</span>
             </div>
             <PagarCobranca c={c} />
           </>

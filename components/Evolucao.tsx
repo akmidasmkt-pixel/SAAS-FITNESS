@@ -61,6 +61,14 @@ export function PainelEvolucao({ aluno, personalNome, visao }: { aluno: Aluno; p
   const d = useEvolucao(aluno.id);
   const metas = useMemo(() => resumirMetas(aluno, d), [aluno, d]);
   const [medidaSel, setMedidaSel] = useState<Medida | null>(null);
+  const [largo, setLargo] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px)");
+    const f = () => setLargo(mq.matches);
+    f();
+    mq.addEventListener("change", f);
+    return () => mq.removeEventListener("change", f);
+  }, []);
   if (d.carregando) return <Carregando />;
   if (d.erro) return <Vazio titulo="Não foi possível carregar a evolução" texto={d.erro} />;
 
@@ -84,8 +92,6 @@ export function PainelEvolucao({ aluno, personalNome, visao }: { aluno: Aluno; p
       </Card>
     );
   }
-
-  const coluna = visao === "personal" ? "grid gap-4 lg:grid-cols-2 items-start" : "flex flex-col gap-4";
 
   return (
     <div className="flex flex-col gap-4">
@@ -121,12 +127,12 @@ export function PainelEvolucao({ aluno, personalNome, visao }: { aluno: Aluno; p
           </div>
         </div>
         {metas.length ? (
-          <div className="grid grid-cols-1 sm:grid-cols-3 border-t border-linha2">
+          <div className={`grid border-t border-linha2 ${metas.length >= 3 ? "grid-cols-3" : metas.length === 2 ? "grid-cols-2" : "grid-cols-1"}`}>
             {metas.slice(0, 3).map((m) => (
               <button key={m.meta.id} type="button" onClick={() => setMedidaSel(m.meta.medida)}
-                className={`text-left px-5 py-3.5 flex flex-col gap-1.5 border-b sm:border-b-0 sm:border-r last:border-0 border-linha2 cursor-pointer ${sel?.meta.id === m.meta.id ? "bg-azul-bg" : "hover:bg-fundo"}`}>
-                <span className="text-[11px] font-bold text-mudo uppercase tracking-[0.05em]">{MEDIDAS[m.meta.medida].rotulo} · {Math.max(0, m.pct)}%</span>
-                <span className="text-[15px] font-extrabold">{m.texto}</span>
+                className={`text-left px-3 sm:px-5 py-3 sm:py-3.5 flex flex-col gap-1.5 border-r last:border-0 border-linha2 cursor-pointer min-w-0 ${sel?.meta.id === m.meta.id ? "bg-azul-bg" : "hover:bg-fundo"}`}>
+                <span className="text-[10px] sm:text-[11px] font-bold text-mudo uppercase tracking-[0.05em] truncate">{MEDIDAS[m.meta.medida].rotulo} · {Math.max(0, m.pct)}%</span>
+                <span className="text-[13px] sm:text-[15px] font-extrabold leading-tight">{m.texto}</span>
                 <Barra pct={m.pct} cor={m.pct >= 100 ? "#0ca30c" : "#2a78d6"} altura={6} />
               </button>
             ))}
@@ -134,8 +140,8 @@ export function PainelEvolucao({ aluno, personalNome, visao }: { aluno: Aluno; p
         ) : null}
       </Card>
 
-      <div className={coluna}>
-        {sel && sel.pontos.length ? (
+      {(() => {
+        const grafico = sel && sel.pontos.length ? (
           <Card>
             <CardTopo titulo="Progresso até a meta" sub="Sobe quando se aproxima da meta e cai quando se afasta" />
             {metas.length > 1 ? (
@@ -155,15 +161,27 @@ export function PainelEvolucao({ aluno, personalNome, visao }: { aluno: Aluno; p
               {MEDIDAS[sel.meta.medida].rotulo}: de {valorMedida(sel.meta.medida, sel.meta.inicio)} para a meta de {valorMedida(sel.meta.medida, sel.meta.alvo)} · hoje {valorMedida(sel.meta.medida, sel.atual)}. Pontos maiores são avaliações.
             </p>
           </Card>
-        ) : null}
-
-        <TimeLapse fotos={d.fotos} marco={marco} metas={metas} dados={d} visao={visao} personalNome={personalNome} />
-        <AntesDepois fotos={d.fotos} />
-        <Frequencia dados={d} marco={marco} />
-        <Recordes dados={d} />
-        <LinhaDoTempo aluno={aluno} dados={d} metas={metas} marco={marco} personalNome={personalNome} />
-        {visao === "aluno" && principal ? <CardCompartilhar aluno={aluno} principal={principal} semanas={semanas} marco={marco} personalNome={personalNome} /> : null}
-      </div>
+        ) : null;
+        const lapso = <TimeLapse fotos={d.fotos} marco={marco} metas={metas} dados={d} visao={visao} personalNome={personalNome} />;
+        const antesDepois = <AntesDepois fotos={d.fotos} />;
+        const frequencia = <Frequencia dados={d} marco={marco} />;
+        const recordes = <Recordes dados={d} />;
+        const linha = <LinhaDoTempo aluno={aluno} dados={d} metas={metas} marco={marco} personalNome={personalNome} />;
+        if (visao === "personal" && largo) {
+          return (
+            <div className="grid gap-4 lg:grid-cols-2 items-start">
+              <div className="flex flex-col gap-4">{grafico}{frequencia}{recordes}{linha}</div>
+              <div className="flex flex-col gap-4">{lapso}{antesDepois}</div>
+            </div>
+          );
+        }
+        return (
+          <div className="flex flex-col gap-4">
+            {grafico}{lapso}{antesDepois}{frequencia}{recordes}{linha}
+            {visao === "aluno" && principal ? <CardCompartilhar aluno={aluno} principal={principal} semanas={semanas} marco={marco} personalNome={personalNome} /> : null}
+          </div>
+        );
+      })()}
     </div>
   );
 }
@@ -246,9 +264,9 @@ function TimeLapse({ fotos, marco, metas, dados, visao, personalNome }: {
 
   return (
     <Card>
-      <CardTopo titulo="Time-lapse" sub={`${lista.length} ${lista.length === 1 ? "foto" : "fotos"} · ${visao === "aluno" ? `só você e ${personalNome.split(" ")[0]} veem` : "o aluno vê o mesmo no app"}`}
-        direita={<Segmentado rotulo="Ângulo" opcoes={ANGULOS} valor={angulo} onChange={(v) => setAngulo(v)} />} />
+      <CardTopo titulo="Time-lapse" sub={`${lista.length} ${lista.length === 1 ? "foto" : "fotos"} · ${visao === "aluno" ? `só você e ${personalNome.split(" ")[0]} veem` : "o aluno vê o mesmo no app"}`} />
       <div className="px-4 sm:px-5 pb-4 flex flex-col gap-3">
+        <Segmentado rotulo="Ângulo" opcoes={ANGULOS} valor={angulo} onChange={(v) => setAngulo(v)} cheio />
         <div className="relative aspect-[3/4] max-h-[520px] w-full mx-auto rounded-xl overflow-hidden bg-[#eceae5]">
           {f && urls[f.caminho] ? (
             // eslint-disable-next-line @next/next/no-img-element
@@ -322,8 +340,9 @@ function AntesDepois({ fotos }: { fotos: Foto[] }) {
 
   return (
     <Card>
-      <CardTopo titulo="Antes e depois" sub="Arraste para comparar" direita={<Segmentado rotulo="Ângulo" opcoes={ANGULOS} valor={angulo} onChange={(v) => setAngulo(v)} />} />
+      <CardTopo titulo="Antes e depois" sub="Arraste a linha para comparar" />
       <div className="px-4 sm:px-5 pb-4 flex flex-col gap-3">
+        <Segmentado rotulo="Ângulo" opcoes={ANGULOS} valor={angulo} onChange={(v) => setAngulo(v)} cheio />
         {lista.length < 2 ? (
           <p className="text-sm text-mudo py-6 text-center">Precisa de duas fotos neste ângulo para comparar.</p>
         ) : (

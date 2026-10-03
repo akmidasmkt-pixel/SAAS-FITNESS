@@ -152,7 +152,7 @@ export function CameraGuia({ titulo, fantasma, onFoto, onFechar }: {
 }
 
 /** Vídeo demonstrativo do exercício: arquivo enviado pelo personal ou link do YouTube. */
-export function VideoExercicio({ exercicio, personalNome, compacto = false }: { exercicio: Pick<Exercicio, "video_caminho" | "video_link" | "nome">; personalNome?: string; compacto?: boolean }) {
+export function VideoExercicio({ exercicio, personalNome, compacto = false, tamanho }: { exercicio: Pick<Exercicio, "video_caminho" | "video_link" | "nome">; personalNome?: string; compacto?: boolean; tamanho?: string }) {
   const [url, setUrl] = useState<string | null>(null);
   useEffect(() => {
     setUrl(null);
@@ -163,7 +163,7 @@ export function VideoExercicio({ exercicio, personalNome, compacto = false }: { 
   }, [exercicio.video_caminho]);
 
   const yt = idYoutube(exercicio.video_link);
-  const caixa = `relative w-full ${compacto ? "aspect-video" : "aspect-[4/5] sm:aspect-video"} rounded-xl overflow-hidden bg-[#1d1d1b]`;
+  const caixa = `relative w-full ${tamanho ?? (compacto ? "aspect-video" : "aspect-[4/5] sm:aspect-video")} rounded-xl overflow-hidden bg-[#1d1d1b]`;
 
   if (exercicio.video_caminho) {
     return (

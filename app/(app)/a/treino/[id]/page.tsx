@@ -213,7 +213,7 @@ export default function TreinoEmExecucao() {
       <div className="h-1 bg-linha2 mx-3 rounded-full overflow-hidden"><div className="h-1 bg-azul transition-all" style={{ width: `${total ? (feitas / total) * 100 : 0}%` }} /></div>
 
       <div className="flex-1 px-4 pt-3 pb-28 flex flex-col gap-3.5">
-        {ex ? <VideoExercicio exercicio={ex} personalNome={meuPersonal?.nome} /> : null}
+        {ex ? <VideoExercicio exercicio={ex} personalNome={meuPersonal?.nome} tamanho="h-[36vh] max-h-[360px] min-h-[200px]" /> : null}
         <div>
           <h2 className="text-xl font-extrabold leading-tight">{ex?.nome ?? "Exercício"}</h2>
           <p className="text-sm text-texto2 mt-0.5">{item.series} séries × {item.repeticoes}{item.carga ? ` · ${item.carga}` : ""} · descanso {item.descanso}</p>
