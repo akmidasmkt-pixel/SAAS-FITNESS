@@ -49,7 +49,13 @@ def info(caminho):
 
 def escapar(texto):
     j = json.dumps(texto, ensure_ascii=False)
-    return re.sub(r"[^\x00-\x7eÀ-ÿ]", lambda m: "\\u%04x" % ord(m.group(0)), j)
+    def esc(m):
+        c = ord(m.group(0))
+        if c > 0xFFFF:  # emoji e afins: par substituto, senão o JSON decodifica outro caractere
+            c -= 0x10000
+            return "\\u%04x\\u%04x" % (0xD800 + (c >> 10), 0xDC00 + (c & 0x3FF))
+        return "\\u%04x" % c
+    return re.sub(r"[^\x00-\x7eÀ-ÿ]", esc, j)
 
 
 def lotes():
