@@ -34,14 +34,16 @@ O app é o mesmo para os três perfis, instalável no celular. Cada perfil vê a
 
 **Taxa sobre o que o personal recebe dos alunos** (descontada do valor recebido, via Asaas)
 
-| Meio | Asaas cobra | Nossa comissão (split) | Personal paga no total |
+A taxa para o personal é **fixa**, sem depender da tarifa do Asaas no momento:
+
+| Meio | Personal paga, sempre | Asaas cobra hoje | Parte da agência (split) |
 |---|---|---|---|
-| Pix e boleto | R$ 1,99 | R$ 1,99 | **R$ 3,98** (sempre o dobro do Asaas) |
-| Cartão | 2,99% + R$ 0,49 | 1,5% | **4,49% + R$ 0,49** |
+| Pix e boleto | **R$ 3,98** | R$ 1,99 (R$ 0,99 nos 3 primeiros meses da conta) | R$ 1,99 (R$ 2,99 nos 3 primeiros meses) |
+| Cartão | **4,49% + R$ 0,49** | 2,99% + R$ 0,49 (promoção: 1,99%) | 1,5% (2,5% na promoção) |
 
-Exemplo: numa mensalidade de R$ 200, o personal paga R$ 3,98 no Pix. Na MFIT pagaria R$ 5,18; na Hotmart, cerca de R$ 22.
-
-*Assumido:* nos 3 primeiros meses de cada subconta o Asaas cobra R$ 0,99 no Pix. Nesse período nossa comissão acompanha e fica em R$ 0,99, mantendo a regra do "dobro".
+- A parte da agência é o total fixo menos a tarifa que o Asaas cobrar naquela cobrança. Quando o Asaas cobra menos, a agência ganha mais.
+- No app, o personal vê só a taxa total, sem a divisão entre Asaas e agência.
+- Exemplo: numa mensalidade de R$ 200, o personal paga R$ 3,98 no Pix. Na MFIT pagaria R$ 5,18; na Hotmart, cerca de R$ 22.
 
 ## O que entra na primeira versão
 
@@ -63,7 +65,8 @@ Exemplo: numa mensalidade de R$ 200, o personal paga R$ 3,98 no Pix. Na MFIT pag
 5. **Anamnese e avaliação física:**
    - questionário de entrada (PAR-Q, lesões, rotina, objetivo);
    - medidas (peso, % de gordura, circunferências);
-   - fotos padronizadas (frente, lado, costas).
+   - fotos padronizadas (frente, lado, costas);
+   - **objetivo e metas** definidos pelo personal (ex.: emagrecer até 70 kg, 25% de gordura e 74 cm de cintura; ou ganhar massa até 76 kg, 62 kg de massa magra e 35 cm de braço).
    - A primeira avaliação vira o **marco zero** da evolução do aluno.
 6. **Check-in semanal:**
    - o aluno responde peso, sono, adesão e energia e manda fotos;
@@ -73,9 +76,14 @@ Exemplo: numa mensalidade de R$ 200, o personal paga R$ 3,98 no Pix. Na MFIT pag
    - **Linha do tempo:** do marco zero até hoje, com os marcos em ordem de data: avaliações, check-ins com foto, recordes de carga e metas atingidas.
    - **Time-lapse das fotos:** um player passa as fotos em sequência (frente, lado ou costas), com a data e as medidas mudando junto. O aluno vê o corpo mudando semana a semana.
    - **Antes e depois:** um controle deslizante compara quaisquer duas datas, lado a lado ou sobrepostas.
+   - **Progresso até a meta (regra do gráfico):**
+     - os gráficos mostram o percentual do caminho entre o marco zero e a meta: progresso = (atual − início) ÷ (meta − início);
+     - o gráfico **sobe quando o aluno se aproxima da meta e cai quando se afasta**, seja para emagrecer, seja para ganhar massa;
+     - a mudança aparece como conquista, nunca como número negativo (ex.: "6,2 kg a menos · 74% da meta"), em verde quando vai na direção da meta e em âmbar quando vai contra.
    - **Painel "Minha evolução":**
-     - destaques desde o início (ex.: −6,2 kg, −4,1% de gordura, −8 cm de cintura);
-     - gráficos de peso, % de gordura e medidas;
+     - percentual geral da meta em destaque (ex.: "Você já percorreu 74% do caminho até a sua meta");
+     - destaques por medida com barra de progresso (ex.: 6,2 kg a menos, 4,1 pts de gordura a menos, 8 cm de cintura a menos);
+     - gráfico de progresso até a meta para cada medida;
      - frequência de treinos, com sequência de semanas;
      - recordes de carga por exercício.
    - **Foto sempre no mesmo ângulo:** a câmera mostra a silhueta da foto anterior em transparência, para o aluno repetir a mesma pose e distância e o time-lapse ficar alinhado.
@@ -155,6 +163,7 @@ Exemplo: numa mensalidade de R$ 200, o personal paga R$ 3,98 no Pix. Na MFIT pag
   - a conta principal precisa ser PJ;
   - há uma taxa por subconta criada (valor só aparece no painel);
   - é preciso confirmar se o Pix Automático funciona em subconta com split;
+  - a divisão de cada cobrança precisa ser calculada pela tarifa vigente do Asaas naquela conta, para o total do personal ficar sempre fixo;
   - o modo white label precisa ser alinhado com o gerente de contas;
   - o contrato precisa estar adequado à Resolução Conjunta 16/2025 até 31/12/2026.
 - **Pix Automático:** o recebedor provavelmente precisa ter CNPJ. Para o personal só com CPF, a cobrança automática é pelo cartão.
