@@ -62,16 +62,29 @@ Exemplo: numa mensalidade de R$ 200, o personal paga R$ 3,98 no Pix. Na MFIT pag
    - histórico de cargas.
 5. **Anamnese e avaliação física:**
    - questionário de entrada (PAR-Q, lesões, rotina, objetivo);
-   - medidas (peso, % de gordura, circunferências) com gráfico de evolução;
-   - fotos de evolução.
+   - medidas (peso, % de gordura, circunferências);
+   - fotos padronizadas (frente, lado, costas).
+   - A primeira avaliação vira o **marco zero** da evolução do aluno.
 6. **Check-in semanal:**
    - o aluno responde peso, sono, adesão e energia e manda fotos;
    - o personal recebe e responde numa caixa de entrada;
    - o personal escolhe o dia do check-in.
-7. **Chat** entre personal e aluno:
+7. **Linha do tempo e evolução (time-lapse)**, acessível para todos os alunos e também visível para o personal:
+   - **Linha do tempo:** do marco zero até hoje, com os marcos em ordem de data: avaliações, check-ins com foto, recordes de carga e metas atingidas.
+   - **Time-lapse das fotos:** um player passa as fotos em sequência (frente, lado ou costas), com a data e as medidas mudando junto. O aluno vê o corpo mudando semana a semana.
+   - **Antes e depois:** um controle deslizante compara quaisquer duas datas, lado a lado ou sobrepostas.
+   - **Painel "Minha evolução":**
+     - destaques desde o início (ex.: −6,2 kg, −4,1% de gordura, −8 cm de cintura);
+     - gráficos de peso, % de gordura e medidas;
+     - frequência de treinos, com sequência de semanas;
+     - recordes de carga por exercício.
+   - **Foto sempre no mesmo ângulo:** a câmera mostra a silhueta da foto anterior em transparência, para o aluno repetir a mesma pose e distância e o time-lapse ficar alinhado.
+   - **Card de evolução:** o aluno pode salvar ou compartilhar a própria imagem de antes e depois.
+   - **Privacidade:** as fotos ficam privadas. Só o aluno e o seu personal veem.
+8. **Chat** entre personal e aluno:
    - texto, foto e áudio, em tempo real;
    - do chat, o personal abre direto o treino e o último check-in daquele aluno.
-8. **Cobrança recorrente (Asaas):**
+9. **Cobrança recorrente (Asaas):**
    - **Conta de recebimento:** o personal abre a subconta Asaas dentro do app, com CPF ou CNPJ, e faz a verificação de identidade por um link.
    - **Planos para alunos:** o personal cria os próprios planos (ex.: Consultoria mensal, R$ 200) e assina cada aluno num plano.
    - **Meios de pagamento:**
@@ -85,10 +98,10 @@ Exemplo: numa mensalidade de R$ 200, o personal paga R$ 3,98 no Pix. Na MFIT pag
    - **Avisos de vencimento:** antes e depois do vencimento, no app e por e-mail.
    - **Bloqueio automático:** o treino do aluno trava 5 dias após o vencimento e destrava sozinho quando ele paga. O personal pode mudar o prazo ou desligar o bloqueio.
    - **Financeiro:** recebido, a receber, em atraso e extrato com a taxa de cada cobrança.
-9. **Assinatura do personal:**
-   - tela de planos e limite de 1 aluno no plano grátis;
-   - a cobrança real da assinatura entra quando o beta terminar.
-10. **Notificações no celular:** mensagem nova, check-in recebido e pagamento, com o app instalado na tela de início.
+10. **Assinatura do personal:**
+    - tela de planos e limite de 1 aluno no plano grátis;
+    - a cobrança real da assinatura entra quando o beta terminar.
+11. **Notificações no celular:** mensagem nova, check-in recebido e pagamento, com o app instalado na tela de início.
 
 ## Fora da primeira versão (fica para depois do beta)
 
@@ -102,16 +115,18 @@ Exemplo: numa mensalidade de R$ 200, o personal paga R$ 3,98 no Pix. Na MFIT pag
 - App com a marca do personal.
 - Marketplace para captar alunos.
 - Biblioteca de vídeos licenciada.
+- Exportar o time-lapse como vídeo (na primeira versão ele roda dentro do app e o card sai como imagem).
+- O personal usar fotos de alunos na própria divulgação (exige autorização do aluno registrada no app).
 
 ## Telas
 
 ### Personal
 1. **Início:** alunos ativos, check-ins para responder, mensagens novas, recebido no mês, a receber, em atraso e o cartão "Comece por aqui".
 2. **Alunos:** lista com busca e status.
-3. **Aluno:** abas Treinos · Avaliação · Check-ins · Financeiro · Conversa.
+3. **Aluno:** abas Evolução · Treinos · Avaliação · Check-ins · Financeiro · Conversa. A aba Evolução mostra o mesmo painel com time-lapse que o aluno vê.
 4. **Montar treino:** a ficha e o seletor de exercícios com vídeo.
 5. **Exercícios:** a biblioteca, os vídeos e o filtro "sem vídeo".
-6. **Avaliação:** anamnese, medidas, fotos e gráfico.
+6. **Avaliação:** anamnese, medidas e fotos padronizadas, com a câmera guiada pela silhueta da foto anterior.
 7. **Check-ins:** caixa de entrada e configuração do questionário.
 8. **Conversas:** lista de conversas e o chat.
 9. **Financeiro:** planos para alunos, cobranças do mês, atrasos e extrato.
@@ -120,10 +135,16 @@ Exemplo: numa mensalidade de R$ 200, o personal paga R$ 3,98 no Pix. Na MFIT pag
 12. **Ajustes:** perfil, regra de bloqueio, instalar o app e convites (só o administrador).
 
 ### Aluno
-1. **Hoje:** treino do dia, check-in pendente, próxima mensalidade.
+1. **Hoje:** treino do dia, check-in pendente, próxima mensalidade e um destaque da evolução.
 2. **Treino em execução:** vídeo, séries com carga e repetições, descanso.
-3. **Evolução:** cargas e medidas.
-4. **Check-in semanal.**
+3. **Minha evolução:**
+   - painel com os destaques desde o marco zero e os gráficos;
+   - time-lapse das fotos;
+   - antes e depois;
+   - linha do tempo com os marcos;
+   - recordes de carga;
+   - card para compartilhar.
+4. **Check-in semanal:** a câmera com a silhueta guia.
 5. **Conversa com o personal.**
 6. **Pagamentos:** Pix copia e cola ou QR, autorizar o Pix Automático, cartão e histórico.
 7. **Treino pausado:** tela de bloqueio com o botão para pagar.
@@ -139,3 +160,7 @@ Exemplo: numa mensalidade de R$ 200, o personal paga R$ 3,98 no Pix. Na MFIT pag
 - **Pix Automático:** o recebedor provavelmente precisa ter CNPJ. Para o personal só com CPF, a cobrança automática é pelo cartão.
 - **Armazenamento:** vídeos, fotos e áudios ocupam espaço. Na etapa 3 vamos definir limites (ex.: vídeo de exercício com até 60 s) e o custo.
 - **Bloqueio do treino:** precisa estar no contrato entre personal e aluno. O app oferece um texto pronto.
+- **Fotos do corpo e medidas** contam como dados de saúde pela LGPD (dados sensíveis):
+  - guardadas em área privada, com acesso só do aluno e do seu personal;
+  - consentimento do aluno no primeiro acesso;
+  - opção de apagar as fotos.
