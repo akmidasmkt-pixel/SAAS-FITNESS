@@ -137,7 +137,7 @@ function AcessoEncerrado() {
 }
 
 function Consentimento() {
-  const { aluno, meuPersonal, meuPlano, recarregar } = useDados();
+  const { aluno, meuPersonal, meuPlano, regras, recarregar } = useDados();
   const [marcado, setMarcado] = useState(false);
   const [salvando, setSalvando] = useState(false);
   const [erro, setErro] = useState("");
@@ -167,7 +167,9 @@ function Consentimento() {
           <span className="font-extrabold">{meuPlano.nome} · {brl(meuPlano.valor)}/mês</span>
           <span className="text-texto2">Vencimento todo dia {aluno!.dia_vencimento} · {FORMAS_ALUNO[aluno!.forma_pagamento]}</span>
           <span className="text-texto2">
-            Se a mensalidade atrasar, você recebe lembretes. Depois de alguns dias de atraso, o acesso aos treinos pode ser pausado até o pagamento cair; nada se perde.
+            {regras?.bloqueio_ativo
+              ? `Se a mensalidade atrasar mais de ${regras.bloqueio_dias} ${regras.bloqueio_dias === 1 ? "dia" : "dias"}, os treinos ficam pausados até o pagamento cair. Nada se perde: evolução, fotos e conversa continuam.`
+              : "Combine com seu personal o que acontece se a mensalidade atrasar."}
           </span>
         </div>
       ) : null}

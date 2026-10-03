@@ -41,7 +41,7 @@ export default function Login() {
         <form onSubmit={entrar} className="bg-white border border-linha rounded-2xl p-6 flex flex-col gap-4">
           <div>
             <h1 className="text-lg font-extrabold">Entrar</h1>
-            <p className="text-sm text-texto2 mt-1">Finanças e agenda, pessoal e da empresa, no mesmo lugar.</p>
+            <p className="text-sm text-texto2 mt-1">Treinos, evolução, conversa e pagamentos com seu personal.</p>
           </div>
           <Campo rotulo="E-mail">
             <Entrada type="email" autoComplete="email" inputMode="email" value={email} onChange={(e) => setEmail(e.target.value)} />
@@ -54,7 +54,7 @@ export default function Login() {
           <button type="button" onClick={() => setEsqueci((v) => !v)} className="text-[13px] font-bold text-azul-esc self-center cursor-pointer">
             Esqueci minha senha
           </button>
-          {esqueci ? <Aviso>No beta, quem te convidou redefine sua senha pelo app. É só pedir.</Aviso> : null}
+          {esqueci ? <Aviso>Peça ao seu personal para gerar uma nova senha pelo app. Personais: peçam à Agência C-Level.</Aviso> : null}
         </form>
         {primeiroAcesso ? (
           <Link href="/primeiro-acesso" className="text-center text-[13px] font-bold text-azul-esc">

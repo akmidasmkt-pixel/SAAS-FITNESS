@@ -24,6 +24,7 @@ export interface Dados {
   meuPersonal: { id: string; nome: string } | null;
   meuPlano: Plano | null;
   bloqueado: boolean;
+  regras: { checkin_dia: number; bloqueio_ativo: boolean; bloqueio_dias: number } | null;
 }
 
 interface Store extends Dados {
@@ -37,7 +38,7 @@ interface Store extends Dados {
 
 const vazio: Dados = {
   perfil: null, email: "", personal: null, alunos: [], planos: [], exercicios: [], cobrancas: [], checkinsAbertos: [],
-  ultimoTreino: {}, ultimoCheckin: {}, treinosSemana: {}, naoLidas: {}, aluno: null, meuPersonal: null, meuPlano: null, bloqueado: false,
+  ultimoTreino: {}, ultimoCheckin: {}, treinosSemana: {}, naoLidas: {}, aluno: null, meuPersonal: null, meuPlano: null, bloqueado: false, regras: null,
 };
 
 const Ctx = createContext<Store | null>(null);
@@ -85,6 +86,7 @@ async function carregarPersonal(uid: string): Promise<Partial<Dados>> {
   for (const m of (msgs.data ?? []) as { aluno_id: string }[]) naoLidas[m.aluno_id] = (naoLidas[m.aluno_id] ?? 0) + 1;
   return {
     personal: (personal.data ?? null) as Personal | null,
+    regras: personal.data ? { checkin_dia: personal.data.checkin_dia, bloqueio_ativo: personal.data.bloqueio_ativo, bloqueio_dias: personal.data.bloqueio_dias } : null,
     alunos: (alunos.data ?? []) as Aluno[],
     planos: numeros(planos.data as Plano[], ["valor"]),
     exercicios: (exercicios.data ?? []) as Exercicio[],
@@ -96,13 +98,14 @@ async function carregarPersonal(uid: string): Promise<Partial<Dados>> {
 
 async function carregarAluno(uid: string): Promise<Partial<Dados>> {
   const s = sb();
-  const [aluno, pers, bloq, msgs] = await Promise.all([
+  const [aluno, pers, bloq, msgs, regras] = await Promise.all([
     s.from("alunos").select("*").eq("user_id", uid).eq("status", "ativo").maybeSingle(),
     s.rpc("meu_personal"),
     s.rpc("aluno_bloqueado", {}),
     s.from("mensagens").select("aluno_id").is("lida_em", null).neq("autor_id", uid).limit(500),
+    s.rpc("regras_do_personal"),
   ]);
-  verifica([aluno, pers, bloq, msgs]);
+  verifica([aluno, pers, bloq, msgs, regras]);
   const a = (aluno.data ?? null) as Aluno | null;
   let meuPlano: Plano | null = null;
   let cobrancas: Cobranca[] = [];
@@ -118,7 +121,8 @@ async function carregarAluno(uid: string): Promise<Partial<Dados>> {
   const p = Array.isArray(pers.data) ? pers.data[0] : pers.data;
   const naoLidas: Record<string, number> = {};
   if (a) naoLidas[a.id] = (msgs.data ?? []).length;
-  return { aluno: a, meuPersonal: p ? { id: p.id, nome: p.nome } : null, meuPlano, cobrancas, bloqueado: !!bloq.data, naoLidas };
+  const r = Array.isArray(regras.data) ? regras.data[0] : regras.data;
+  return { aluno: a, meuPersonal: p ? { id: p.id, nome: p.nome } : null, meuPlano, cobrancas, bloqueado: !!bloq.data, naoLidas, regras: r ?? null };
 }
 
 export function DataProvider({ children }: { children: ReactNode }) {
