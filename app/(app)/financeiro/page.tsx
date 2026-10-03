@@ -42,7 +42,7 @@ export default function Financeiro() {
   return (
     <>
       <Cabecalho titulo="Financeiro" sub="Mensalidades, planos e o que você recebeu"
-        acoes={<Botao onClick={() => setNova(true)}><IconMais size={18} /> <span className="hidden sm:inline">Cobrança avulsa</span></Botao>} />
+        acoes={<Botao onClick={() => setNova(true)} aria-label="Cobrança avulsa"><IconMais size={18} /> <span className="hidden sm:inline">Cobrança avulsa</span></Botao>} />
       <Conteudo>
         <Segmentado rotulo="Seções" opcoes={[{ valor: "cobrancas", rotulo: "Cobranças" }, { valor: "planos", rotulo: "Planos" }, { valor: "extrato", rotulo: "Extrato" }]} valor={aba} onChange={(v) => setAba(v as Aba)} />
         {aba === "cobrancas" ? (

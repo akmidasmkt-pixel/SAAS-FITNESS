@@ -119,7 +119,7 @@ export default function Inicio() {
   return (
     <>
       <Cabecalho titulo={`${saudacao()}, ${perfil?.nome.split(" ")[0] ?? ""}`} sub={dataPorExtenso(hj)}
-        acoes={<Botao onClick={() => setNovo(true)}><IconMais size={18} /> <span className="hidden sm:inline">Novo aluno</span></Botao>} />
+        acoes={<Botao onClick={() => setNovo(true)} aria-label="Novo aluno"><IconMais size={18} /> <span className="hidden sm:inline">Novo aluno</span></Botao>} />
       <Conteudo>
         <FaixaAvisos texto="Saiba na hora quando um aluno manda mensagem, envia o check-in ou paga a mensalidade." />
         {!perfil?.onboarding_ok && feitos < passos.length ? (

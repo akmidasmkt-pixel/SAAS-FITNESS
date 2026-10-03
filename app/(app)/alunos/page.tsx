@@ -65,7 +65,7 @@ export default function Alunos() {
     <>
       <Cabecalho titulo="Alunos"
         sub={`${ativos} ${ativos === 1 ? "ativo" : "ativos"}${personal?.plano === "gratis" ? " · plano grátis, até 1 aluno" : " · sem limite de alunos"}`}
-        acoes={<Botao onClick={() => setNovo(true)}><IconMais size={18} /> <span className="hidden sm:inline">Novo aluno</span></Botao>} />
+        acoes={<Botao onClick={() => setNovo(true)} aria-label="Novo aluno"><IconMais size={18} /> <span className="hidden sm:inline">Novo aluno</span></Botao>} />
       <Conteudo>
         <div className="flex flex-col gap-3">
           <div className="relative max-w-md">

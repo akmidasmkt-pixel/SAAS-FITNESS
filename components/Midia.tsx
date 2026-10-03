@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { Exercicio } from "@/lib/types";
-import { comprimirImagem, idYoutube, urlAssinada } from "@/lib/arquivos";
+import { capaDoVideo, comprimirImagem, idYoutube, urlsAssinadas } from "@/lib/arquivos";
 import { IconCamera, IconFechar, IconFoto, IconVideo } from "@/lib/icons";
 import { Botao } from "./ui";
 
@@ -154,11 +154,16 @@ export function CameraGuia({ titulo, fantasma, onFoto, onFechar }: {
 /** Vídeo demonstrativo do exercício: arquivo enviado pelo personal ou link do YouTube. */
 export function VideoExercicio({ exercicio, personalNome, compacto = false, tamanho }: { exercicio: Pick<Exercicio, "video_caminho" | "video_link" | "nome">; personalNome?: string; compacto?: boolean; tamanho?: string }) {
   const [url, setUrl] = useState<string | null>(null);
+  const [capa, setCapa] = useState<string | null>(null);
   useEffect(() => {
-    setUrl(null);
-    if (!exercicio.video_caminho) return;
+    setUrl(null); setCapa(null);
+    const caminho = exercicio.video_caminho;
+    if (!caminho) return;
     let vivo = true;
-    urlAssinada("videos", exercicio.video_caminho).then((u) => { if (vivo) setUrl(u); });
+    // Vídeos enviados antes da compressão não têm capa: o link dela simplesmente não vem.
+    urlsAssinadas("videos", [caminho, capaDoVideo(caminho)]).then((u) => {
+      if (vivo) { setUrl(u[caminho] ?? null); setCapa(u[capaDoVideo(caminho)] ?? null); }
+    });
     return () => { vivo = false; };
   }, [exercicio.video_caminho]);
 
@@ -169,7 +174,7 @@ export function VideoExercicio({ exercicio, personalNome, compacto = false, tama
     return (
       <div className={caixa}>
         {url ? (
-          <video key={url} src={url} controls playsInline loop muted autoPlay preload="metadata" className="absolute inset-0 w-full h-full object-contain" aria-label={`Vídeo: ${exercicio.nome}`} />
+          <video key={url} src={url} poster={capa ?? undefined} controls playsInline loop muted autoPlay preload="metadata" className="absolute inset-0 w-full h-full object-contain" aria-label={`Vídeo: ${exercicio.nome}`} />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center text-white/70 text-sm font-semibold">Carregando vídeo…</div>
         )}

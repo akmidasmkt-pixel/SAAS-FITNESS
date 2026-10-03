@@ -27,12 +27,13 @@ export async function urlsAssinadas(balde: Balde, caminhos: string[]): Promise<R
   return saida;
 }
 
-export async function urlAssinada(balde: Balde, caminho: string): Promise<string | null> {
-  const r = await urlsAssinadas(balde, [caminho]);
-  return r[caminho] ?? null;
-}
-
 export const nomeArquivo = (ext: string) => `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
+
+/** A capa do vídeo fica ao lado dele, com o mesmo nome em .jpg. */
+export const capaDoVideo = (caminho: string) => caminho.replace(/\.[^./]+$/, "") + ".jpg";
+
+/** Apaga vídeos de exercício junto com as capas. */
+export const apagarVideos = (caminhos: string[]) => apagar("videos", caminhos.flatMap((c) => [c, capaDoVideo(c)]));
 
 /** Envia um arquivo e devolve o caminho salvo. */
 export async function enviar(balde: Balde, caminho: string, arquivo: Blob, tipo?: string): Promise<string> {
