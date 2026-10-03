@@ -1,7 +1,8 @@
 "use client";
 
 import { useDados } from "@/lib/store";
-import { sb } from "@/lib/supabase";
+import { sairDoApp } from "@/lib/push";
+import { CartaoAvisos } from "@/components/AtivarAvisos";
 import { TopoAluno, PagarCobranca, cobrancaEmAberto } from "@/components/AlunoComum";
 import { InstalarApp } from "@/components/InstalarApp";
 import { Botao } from "@/components/ui";
@@ -68,8 +69,9 @@ export default function PagamentosAluno() {
           <span className="font-extrabold">Minha conta</span>
           <span className="text-texto2">{aluno.nome} · {email}</span>
           {aluno.consentimento_em ? <span className="text-xs text-mudo">Termos de privacidade e do plano aceitos em {ddmmaa(aluno.consentimento_em.slice(0, 10))}.</span> : null}
-          <Botao variante="secundario" className="mt-2" onClick={() => sb().auth.signOut()}>Sair do app</Botao>
+          <Botao variante="secundario" className="mt-2" onClick={() => sairDoApp()}>Sair do app</Botao>
         </section>
+        <CartaoAvisos texto="Mensagens do seu personal, resposta do check-in, treino novo e lembrete da mensalidade." />
         <InstalarApp />
       </div>
     </>

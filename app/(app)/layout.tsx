@@ -10,6 +10,7 @@ import { Aviso, Botao, Campo, Carregando, Entrada } from "@/components/ui";
 import { Marca } from "@/lib/marca";
 import { brl } from "@/lib/format";
 import { FORMAS_ALUNO } from "@/lib/cobranca";
+import { registrarServico, sairDoApp } from "@/lib/push";
 
 export default function AppLayout({ children }: { children: ReactNode }) {
   const router = useRouter();
@@ -19,7 +20,7 @@ export default function AppLayout({ children }: { children: ReactNode }) {
     const s = sb();
     s.auth.getSession().then(({ data }) => {
       if (!data.session) router.replace("/login");
-      else setOk(true);
+      else { setOk(true); registrarServico(); }
     });
     const { data: sub } = s.auth.onAuthStateChange((_evento, sessao) => {
       if (!sessao) router.replace("/login");
@@ -57,7 +58,7 @@ function Portao({ children }: { children: ReactNode }) {
           <p className="font-extrabold">Não foi possível carregar seus dados.</p>
           <p className="text-sm text-texto2">{erro}</p>
           <Botao onClick={() => recarregar()}>Tentar de novo</Botao>
-          <Botao variante="fantasma" onClick={() => sb().auth.signOut()}>Sair</Botao>
+          <Botao variante="fantasma" onClick={() => sairDoApp()}>Sair</Botao>
         </div>
       </div>
     );
@@ -131,7 +132,7 @@ function AcessoEncerrado() {
       <p className="text-sm text-texto2 leading-relaxed">
         Seu personal encerrou ou pausou o acompanhamento por aqui. Se achar que é um engano, fale com ele.
       </p>
-      <Botao variante="secundario" onClick={() => sb().auth.signOut()}>Sair</Botao>
+      <Botao variante="secundario" onClick={() => sairDoApp()}>Sair</Botao>
     </TelaCentral>
   );
 }

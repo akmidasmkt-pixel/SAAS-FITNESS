@@ -9,6 +9,7 @@ import { Aviso, Botao, Campo, Card, CardTopo, Entrada, Folha, Selecao } from "@/
 import { ddmmaa } from "@/lib/format";
 import { IconCopiar } from "@/lib/icons";
 import { InstalarApp } from "@/components/InstalarApp";
+import { CartaoAvisos } from "@/components/AtivarAvisos";
 
 const DIAS = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
 
@@ -27,6 +28,7 @@ export default function Ajustes() {
             <Assinatura />
             {perfil?.papel === "admin" ? <Personais /> : null}
             <Perfil />
+            <CartaoAvisos texto="Mensagens e check-ins dos alunos e pagamentos recebidos pelo app." />
             <InstalarApp />
           </div>
         </div>

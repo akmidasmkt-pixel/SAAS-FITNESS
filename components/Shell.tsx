@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useState, type ComponentType, type ReactNode } from "react";
-import { sb } from "@/lib/supabase";
+import { sairDoApp } from "@/lib/push";
 import { useDados } from "@/lib/store";
 import {
   IconAjustes, IconCheckin, IconClientes, IconConversa, IconDinheiro, IconEvolucao, IconHalter, IconInicio, IconMenu, IconSair, IconVideo,
@@ -55,7 +55,7 @@ export function Shell({ children }: { children: ReactNode }) {
   const RODAPE: Item[] = [{ href: "/ajustes", rotulo: "Ajustes", Icone: IconAjustes }];
 
   async function sair() {
-    await sb().auth.signOut();
+    await sairDoApp();
     router.replace("/login");
   }
 

@@ -10,6 +10,7 @@ import { Anel } from "@/components/Graficos";
 import { metaSemanal, resumirMetas } from "@/components/Evolucao";
 import { Botao, Carregando } from "@/components/ui";
 import { Avatar } from "@/components/Cabecalho";
+import { FaixaAvisos } from "@/components/AtivarAvisos";
 import { fichaDoDia, numeroSeries, segundosDescanso } from "@/lib/treino";
 import { dataPorExtenso, diaLocal, hoje, horaLocal, somaDias } from "@/lib/dates";
 import { brl, ddmm } from "@/lib/format";
@@ -90,6 +91,7 @@ export default function HojeAluno() {
     <>
       <TopoAluno titulo={`Oi, ${primeiro}`} sub={dataPorExtenso(hj)} />
       <div className="px-4 flex flex-col gap-3.5">
+        <FaixaAvisos texto={`Receba as mensagens de ${pers}, a resposta do check-in e o lembrete do treino.`} />
         <section className="bg-tinta text-white rounded-2xl p-5 flex flex-col gap-3.5">
           <div className="flex items-center justify-between">
             <span className="text-[11px] font-bold tracking-[0.08em] text-white/60">TREINO DE HOJE</span>

@@ -7,6 +7,7 @@ import { useDados, numeros } from "@/lib/store";
 import { Cabecalho, Conteudo, Avatar } from "@/components/Cabecalho";
 import { Bloco, Botao, Card, CardTopo, Vazio } from "@/components/ui";
 import { AlunoForm } from "@/components/AlunoForm";
+import { FaixaAvisos } from "@/components/AtivarAvisos";
 import { resumirMetas, type ResumoMeta } from "@/components/Evolucao";
 import { hoje, dataPorExtenso, diaLocal, horaLocal, mesAtual, nomeMes, somaDias, ultimoDia } from "@/lib/dates";
 import { brl, brl0, ddmm } from "@/lib/format";
@@ -120,6 +121,7 @@ export default function Inicio() {
       <Cabecalho titulo={`${saudacao()}, ${perfil?.nome.split(" ")[0] ?? ""}`} sub={dataPorExtenso(hj)}
         acoes={<Botao onClick={() => setNovo(true)}><IconMais size={18} /> <span className="hidden sm:inline">Novo aluno</span></Botao>} />
       <Conteudo>
+        <FaixaAvisos texto="Saiba na hora quando um aluno manda mensagem, envia o check-in ou paga a mensalidade." />
         {!perfil?.onboarding_ok && feitos < passos.length ? (
           <Card>
             <CardTopo titulo="Comece por aqui" sub={`${feitos} de ${passos.length} passos para deixar tudo pronto`}
