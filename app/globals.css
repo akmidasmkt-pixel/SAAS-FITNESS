@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+@theme {
+  --color-fundo: #f9f9f7;
+  --color-linha: #e5e4e0;
+  --color-linha2: #f0efec;
+  --color-tinta: #0b0b0b;
+  --color-texto2: #52514e;
+  --color-mudo: #75746f;
+  --color-azul: #2a78d6;
+  --color-azul-esc: #184f95;
+  --color-azul-cl: #e3edfa;
+  --color-azul-bg: #eef4fc;
+  --color-azul-borda: #9ec5f4;
+  --color-laranja: #eb6834;
+  --color-verde: #006300;
+  --color-verde-dot: #0ca30c;
+  --color-verde-cl: #dff5ec;
+  --color-teal: #1baf7a;
+  --color-ambar: #eda100;
+  --color-ambar-cl: #fbf1d6;
+  --color-ambar-txt: #8a5a00;
+  --color-vermelho: #b3261e;
+  --color-vermelho-dot: #d03b3b;
+  --color-vermelho-cl: #fdeae2;
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+html,
+body {
+  background: var(--color-fundo);
+  color: var(--color-tinta);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
+a:hover {
+  color: var(--color-azul-esc);
+}
+
+input[type="date"],
+input[type="time"] {
+  min-height: 44px;
+}
+
+.rolagem-fina::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+}
+.rolagem-fina::-webkit-scrollbar-thumb {
+  background: #d6d5d0;
+  border-radius: 6px;
+}
