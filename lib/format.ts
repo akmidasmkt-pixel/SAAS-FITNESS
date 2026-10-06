@@ -39,3 +39,11 @@ export const valorCampo = (v: number | null | undefined) =>
   v == null || isNaN(Number(v)) ? "" : Number(v).toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
 export const AREA_NOME: Record<string, string> = { pessoal: "Pessoal", empresa: "Empresa" };
+
+const semAcento = (s: string) => s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+
+/** Busca sem acento e sem maiúsculas, com as palavras em qualquer ordem: "triceps halter" acha "Tríceps francês unilateral com halter". */
+export const combinaBusca = (texto: string, busca: string) => {
+  const t = semAcento(texto);
+  return semAcento(busca).split(/\s+/).filter(Boolean).every((p) => t.includes(p));
+};

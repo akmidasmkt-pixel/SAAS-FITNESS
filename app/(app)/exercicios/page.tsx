@@ -8,6 +8,7 @@ import type { Exercicio, Grupo } from "@/lib/types";
 import { GRUPOS } from "@/lib/types";
 import { apagarVideos, capaDoVideo, enviar, idYoutube, nomeArquivo } from "@/lib/arquivos";
 import { foiCancelado, prepararVideo, type VideoPronto } from "@/lib/video";
+import { combinaBusca } from "@/lib/format";
 import { Cabecalho, Conteudo } from "@/components/Cabecalho";
 import { AreaTexto, Aviso, Barra, Botao, Campo, Card, Entrada, Filtros, Folha, Segmentado, Selecao, Vazio } from "@/components/ui";
 import { VideoExercicio } from "@/components/Midia";
@@ -24,15 +25,14 @@ export default function Exercicios() {
 
   const ativos = exercicios.filter((e) => e.ativo);
   const comVideo = ativos.filter((e) => e.video_caminho || e.video_link).length;
-  const termo = busca.trim().toLowerCase();
   const lista = useMemo(() => exercicios.filter((e) => {
     const tem = !!(e.video_caminho || e.video_link);
     if (filtro === "ocultos" ? e.ativo : !e.ativo) return false;
     if (filtro === "sem_video" && tem) return false;
     if (filtro === "com_video" && !tem) return false;
     if (grupo !== "Todos" && e.grupo !== grupo) return false;
-    return !termo || e.nome.toLowerCase().includes(termo);
-  }), [exercicios, filtro, grupo, termo]);
+    return combinaBusca(e.nome, busca);
+  }), [exercicios, filtro, grupo, busca]);
 
   const porGrupo = GRUPOS.map((g) => ({ g, itens: lista.filter((e) => e.grupo === g) })).filter((x) => x.itens.length);
 
