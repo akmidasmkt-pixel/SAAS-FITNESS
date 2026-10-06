@@ -8,6 +8,7 @@ import { useDados } from "@/lib/store";
 import { useUi } from "@/lib/ui";
 import type { Exercicio, Ficha, FichaItem } from "@/lib/types";
 import { GRUPOS } from "@/lib/types";
+import { combinaBusca } from "@/lib/format";
 import { Cabecalho, Conteudo } from "@/components/Cabecalho";
 import { Aviso, Botao, Campo, Card, Carregando, Entrada, Filtros, Folha, Selecao, Vazio } from "@/components/ui";
 import { VideoExercicio } from "@/components/Midia";
@@ -209,8 +210,7 @@ function EscolherExercicio({ aberta, onFechar, onEscolher, jaNoTreino }: { abert
   const [grupo, setGrupo] = useState<string>("Todos");
   const [adicionados, setAdicionados] = useState(0);
   useEffect(() => { if (aberta) { setBusca(""); setAdicionados(0); } }, [aberta]);
-  const termo = busca.trim().toLowerCase();
-  const lista = useMemo(() => exercicios.filter((e) => e.ativo && (grupo === "Todos" || e.grupo === grupo) && (!termo || e.nome.toLowerCase().includes(termo))), [exercicios, grupo, termo]);
+  const lista = useMemo(() => exercicios.filter((e) => e.ativo && (grupo === "Todos" || e.grupo === grupo) && combinaBusca(e.nome, busca)), [exercicios, grupo, busca]);
   return (
     <Folha aberta={aberta} titulo="Adicionar exercício" onFechar={onFechar} largura="max-w-xl"
       rodape={<Botao onClick={onFechar}>{adicionados ? `Pronto (${adicionados} adicionados)` : "Fechar"}</Botao>}>

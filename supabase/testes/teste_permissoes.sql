@@ -34,7 +34,7 @@ begin
     insert into public.cobrancas (personal_id, aluno_id, valor, vencimento) values (p2, al2, 150, current_date);
 
     select count(*) into n from public.exercicios where personal_id = p1;
-    if n >= 40 then ok := ok + 1; else r := r || 'FALHOU exercicios base semeados=' || n || '; '; end if;
+    if n = (select count(*) from public.exercicios_base) then ok := ok + 1; else r := r || 'FALHOU exercicios base semeados=' || n || '; '; end if;
 
     ---------------------------------------------------------------- personal 1
     set local role authenticated;
@@ -72,6 +72,8 @@ begin
     exception when others then ok := ok + 1; end;
     if not has_table_privilege('authenticated', 'public.cobrancas', 'DELETE') then ok := ok + 1; else r := r || 'FALHOU personal pode apagar cobranca; '; end if;
     begin perform count(*) from public.push_config; r := r || 'FALHOU P1 leu push_config; ';
+    exception when others then ok := ok + 1; end;
+    begin perform count(*) from public.exercicios_base; r := r || 'FALHOU P1 leu exercicios_base; ';
     exception when others then ok := ok + 1; end;
     begin perform count(*) from public.asaas_chaves; r := r || 'FALHOU P1 leu asaas_chaves; ';
     exception when others then ok := ok + 1; end;

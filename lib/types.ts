@@ -136,7 +136,7 @@ export interface Foto {
   criado_em: string;
 }
 
-export const GRUPOS = ["Peito", "Costas", "Ombros", "Bíceps", "Tríceps", "Pernas", "Glúteos", "Abdômen", "Cardio", "Outros"] as const;
+export const GRUPOS = ["Peito", "Costas", "Ombros", "Bíceps", "Tríceps", "Antebraço", "Pernas", "Glúteos", "Abdômen", "Cardio", "Funcional", "Alongamento", "Outros"] as const;
 export type Grupo = (typeof GRUPOS)[number];
 
 export interface Exercicio {
